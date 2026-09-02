@@ -6,6 +6,7 @@
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -23,3 +24,24 @@ model MealPlan {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 }
+<<<<<<< HEAD
+=======
+
+enum ContractorType {
+  INDIVIDUAL
+  BUSINESS
+}
+
+model Contractor {
+  id                  String         @id @default(uuid())
+  cName               String
+  contractorType      ContractorType
+  tradeCategory       String
+  mostRecentlyActive  DateTime?
+  mostRecentlyUpdated DateTime       @updatedAt
+  metroArea           String?
+  city                String?
+  about               String?
+  services            String?
+}
+>>>>>>> a488151 (Initialize feature/build-layout-wf-v0x)
