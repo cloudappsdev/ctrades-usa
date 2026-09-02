@@ -32,15 +32,8 @@
     "eslint-config-next": "16.3.1",
     "prettier": "^3.9.6",
     "prisma": "^7.9.1",
-<<<<<<< HEAD
-=======
     "shadcn": "^4.19.0",
-<<<<<<< HEAD
->>>>>>> a488151 (Initialize feature/build-layout-wf-v0x)
-    "tailwindcss": "^4",
-=======
     "tailwindcss": "^4.3.3",
->>>>>>> acbbf91 (from clone add fuse.js and fix tw-animate-css)
     "typescript": "^5"
   }
 }
