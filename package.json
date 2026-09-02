@@ -1,14 +1,18 @@
 {
-  "name": "app-fmo",
+  "name": "ctrades-usa",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "build": "next build",
 =======
     "build": "prisma generate && next build",
 >>>>>>> a488151 (Initialize feature/build-layout-wf-v0x)
+=======
+    "build": "next build",
+>>>>>>> acbbf91 (from clone add fuse.js and fix tw-animate-css)
     "start": "next start",
     "lint": "eslint"
   },
@@ -39,8 +43,12 @@
 <<<<<<< HEAD
 =======
     "shadcn": "^4.19.0",
+<<<<<<< HEAD
 >>>>>>> a488151 (Initialize feature/build-layout-wf-v0x)
     "tailwindcss": "^4",
+=======
+    "tailwindcss": "^4.3.3",
+>>>>>>> acbbf91 (from clone add fuse.js and fix tw-animate-css)
     "typescript": "^5"
   }
 }
