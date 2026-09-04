@@ -53,7 +53,7 @@ async function getContractorsInMetroArea(
 
 export async function generateMetadata({
   params,
-}: PageProps<"/contractorByCity/[id]">): Promise<Metadata> {
+}: PageProps<"/contractors/byCity/[id]">): Promise<Metadata> {
   const metroArea = decodeMetroArea((await params).id);
 
   return {
@@ -66,7 +66,7 @@ export async function generateMetadata({
 
 export default async function ContractorsByMetroAreaPage({
   params,
-}: PageProps<"/contractorByCity/[id]">) {
+}: PageProps<"/contractors/byCity/[id]">) {
   const metroArea = decodeMetroArea((await params).id);
 
   if (!metroArea) notFound();
