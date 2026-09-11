@@ -15,7 +15,7 @@ const relativeFormatter = new Intl.RelativeTimeFormat("en", {
 const absoluteFormatter = new Intl.DateTimeFormat("en-US", {
   dateStyle: "medium",
   timeStyle: "short",
-  timeZone: "UTC",
+  timeZone: "America/Chicago",
 });
 
 /** "3 days ago", "yesterday". Pass `now` explicitly to keep callers testable. */
@@ -32,7 +32,7 @@ export function formatRelativeTime(date: Date, now: Date = new Date()) {
   return relativeFormatter.format(Math.round(duration), "years");
 }
 
-/** Fixed UTC timestamp for tooltips, so it reads the same on every server. */
+/** Chicago-local timestamp for display, so it reads the same on every server. */
 export function formatAbsoluteTime(date: Date) {
-  return `${absoluteFormatter.format(date)} UTC`;
+  return `${absoluteFormatter.format(date)} CST`;
 }

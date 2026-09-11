@@ -3,9 +3,11 @@ import Link from "next/link";
 
 import { prisma } from "@/src/lib/prisma";
 import {
-  ContractorCard,
-  type ContractorSummary,
-} from "@/src/components/contractors/contractor-card";
+  ContractorActivityCards,
+  ContractorActivityProvider,
+  ContractorActivityToggle,
+} from "@/src/components/contractors/contractor-activity-toggle";
+import type { ContractorSummary } from "@/src/components/contractors/contractor-card";
 import {
   MetroAreaFilter,
   type MetroAreaOption,
@@ -100,59 +102,61 @@ export default async function MostRecentContractorsPage({
     : null;
 
   return (
-    <main className="mx-auto w-full max-w-6xl p-4 sm:p-6">
-      <header className="mb-6 flex flex-col gap-4">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              Most Recently Active
-            </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {contractors.length > 0
-                ? `Top ${contractors.length}${
-                    appliedMetro ? ` in ${appliedMetro}` : ""
-                  }, newest activity first.`
-                : "No contractors match this filter."}
-            </p>
+    <ContractorActivityProvider>
+      <main className="mx-auto w-full max-w-6xl p-4 sm:p-6">
+        <header className="mb-6 flex flex-col gap-4">
+          <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-start">
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                Most Recently Active
+              </h1>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {contractors.length > 0
+                  ? `Top ${contractors.length}${
+                      appliedMetro ? ` in ${appliedMetro}` : ""
+                    }, newest activity first.`
+                  : "No contractors match this filter."}
+              </p>
+            </div>
+
+            <div className="justify-self-center">
+              <ContractorActivityToggle />
+            </div>
+
+            <div className="md:justify-self-end">
+              <Button variant="outline" render={<Link href="/contractors" />}>
+                All contractors
+              </Button>
+            </div>
           </div>
 
-          <Button variant="outline" render={<Link href="/contractors" />}>
-            All contractors
-          </Button>
-        </div>
+          <MetroAreaFilter
+            options={metroAreaOptions}
+            selected={appliedMetro}
+            basePath={BASE_PATH}
+          />
+        </header>
 
-        <MetroAreaFilter
-          options={metroAreaOptions}
-          selected={appliedMetro}
-          basePath={BASE_PATH}
-        />
-      </header>
-
-      {contractors.length === 0 ? (
-        <Empty>
-          <EmptyHeader>
-            <EmptyTitle>Nothing to show</EmptyTitle>
-            <EmptyDescription>
-              {appliedMetro
-                ? `No contractors are listed in ${appliedMetro}.`
-                : "No contractors have registered yet."}
-            </EmptyDescription>
-          </EmptyHeader>
-          <EmptyContent>
-            <Button variant="outline" render={<Link href={BASE_PATH} />}>
-              Clear filter
-            </Button>
-          </EmptyContent>
-        </Empty>
-      ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {contractors.map((contractor) => (
-            <li key={contractor.id}>
-              <ContractorCard contractor={contractor} now={now} />
-            </li>
-          ))}
-        </ul>
-      )}
-    </main>
+        {contractors.length === 0 ? (
+          <Empty>
+            <EmptyHeader>
+              <EmptyTitle>Nothing to show</EmptyTitle>
+              <EmptyDescription>
+                {appliedMetro
+                  ? `No contractors are listed in ${appliedMetro}.`
+                  : "No contractors have registered yet."}
+              </EmptyDescription>
+            </EmptyHeader>
+            <EmptyContent>
+              <Button variant="outline" render={<Link href={BASE_PATH} />}>
+                Clear filter
+              </Button>
+            </EmptyContent>
+          </Empty>
+        ) : (
+          <ContractorActivityCards contractors={contractors} now={now} />
+        )}
+      </main>
+    </ContractorActivityProvider>
   );
 }

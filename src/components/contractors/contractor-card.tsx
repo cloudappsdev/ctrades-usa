@@ -35,10 +35,12 @@ function locationOf({ city, metroArea }: ContractorSummary) {
 export function ContractorCard({
   contractor,
   now,
+  showMostRecentActivity = false,
 }: {
   contractor: ContractorSummary;
   /** Passed in so every card in a list measures against the same instant. */
   now: Date;
+  showMostRecentActivity?: boolean;
 }) {
   const location = locationOf(contractor);
   const { mostRecentlyActive } = contractor;
@@ -98,6 +100,14 @@ export function ContractorCard({
               >
                 {formatRelativeTime(mostRecentlyActive, now)}
               </time>
+              {showMostRecentActivity && (
+                <>
+                  <span aria-hidden="true"> · </span>
+                  <time dateTime={mostRecentlyActive.toISOString()}>
+                    {formatAbsoluteTime(mostRecentlyActive)}
+                  </time>
+                </>
+              )}
             </>
           ) : (
             "No recorded activity"
